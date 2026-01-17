@@ -47,7 +47,7 @@ class BloodInventoryController extends Controller
             ->when($bloodGroup, fn($q) => $q->where('blood_group', $bloodGroup))
             ->when($bloodType, fn($q) => $q->where('blood_type', $bloodType))
             ->when($status !== null, fn($q) => $q->where('status', $status))
-            ->orderBy('expiry_date', 'asc')
+            ->orderBy('inventory_id', 'desc')
             ->paginate(10);
 
         $bloodGroups = Lov::where('lov_category_id', 3)->get();

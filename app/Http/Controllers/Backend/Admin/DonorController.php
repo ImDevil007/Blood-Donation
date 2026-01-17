@@ -48,7 +48,7 @@ class DonorController extends Controller
             ->when($bloodGroup, fn($q) => $q->where('blood_group', $bloodGroup))
             ->when($gender, fn($q) => $q->where('gender', $gender))
             ->when($eligibility !== null, fn($q) => $q->where('is_eligible', $eligibility))
-            ->orderBy('last_donation_date', 'desc')
+            ->orderBy('donor_id', 'desc')
             ->paginate(10);
 
         $genders = Lov::where('lov_category_id', 1)->get();

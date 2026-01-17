@@ -53,7 +53,7 @@ class BloodUnitController extends Controller
             ->when($expiryFilter === 'expired', fn($q) => $q->where('expiry_date', '<=', now()))
             ->when($expiryFilter === 'expiring_soon', fn($q) => $q->where('expiry_date', '<=', now()->addDays(7))
                 ->where('expiry_date', '>', now()))
-            ->orderBy('expiry_date', 'asc')
+            ->orderBy('expiry_date', 'desc')
             ->paginate(10);
 
         $bloodGroups = Lov::where('lov_category_id', 1)->get();
