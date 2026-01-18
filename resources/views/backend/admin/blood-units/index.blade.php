@@ -87,7 +87,7 @@
                                 <th>Volume (ml)</th>
                                 <th>Collection Date</th>
                                 <th>Expiry Date</th>
-                                <th>Status</th>
+                               {{--  <th>Status</th> --}}
                                 <th width="180">Actions</th>
                             </tr>
                         </thead>
@@ -101,13 +101,13 @@
                                     <td>{{ $bloodUnit->volume }}</td>
                                     <td>{{ $bloodUnit->collection_date->format('M d, Y') }}</td>
                                     <td>{{ $bloodUnit->expiry_date->format('M d, Y') }}</td>
-                                    <td>
+                                    {{-- <td>
                                         @if($bloodUnit->status)
                                             <span class="badge badge-success">Active</span>
                                         @else
                                             <span class="badge badge-secondary">Inactive</span>
                                         @endif
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         <a href="{{ route('backend.admin.blood-units.show', $bloodUnit->id) }}"
                                             class="btn btn-xs btn-info">View</a>

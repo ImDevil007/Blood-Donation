@@ -154,7 +154,7 @@
                                                 <th>Volume</th>
                                                 <th>Status</th>
                                                 <th>Location</th>
-                                                <th>Technician</th>
+                                                {{-- <th>Technician</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>

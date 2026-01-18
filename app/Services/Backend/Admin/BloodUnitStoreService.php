@@ -3,9 +3,12 @@
 namespace App\Services\Backend\Admin;
 
 use App\Models\BloodUnit;
+use App\Models\DonationHistory;
 use App\Models\Donor;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+
+use function Symfony\Component\Clock\now;
 
 class BloodUnitStoreService
 {
@@ -36,6 +39,8 @@ class BloodUnitStoreService
 
         // Update donor's total donations count
         $this->updateDonorDonationCount($validated['donor_id']);
+
+        $this->updateDonorDonationHistory($donor,$bloodUnit);
 
         return $bloodUnit;
     }
@@ -102,4 +107,29 @@ class BloodUnitStoreService
             $donor->update(['last_donation_date' => now()]);
         }
     }
+
+    protected function updateDonorDonationHistory($donor,$bloodUnit): void
+        {
+            $bloodUnit = DonationHistory::create([
+            'donor_id' => $donor->id,
+            'donation_date' => now(),
+            'donation_type' => $bloodUnit->blood_type,
+            'blood_volume' => $bloodUnit->volume,
+            'collection_location' => $bloodUnit->storage_location,
+            'camp_id' => null,
+            'technician_id' => null,
+            'test_results' => [],
+            'hemoglobin_level' => $bloodUnit->hemoglobin_level,
+            'blood_pressure' => null,
+            'pulse_rate' => null,
+            'temperature' => null,
+            'weight_at_donation' => null,
+            'donation_status' => 'successful',
+            'rejection_reason' => null,
+            'notes' => null,
+            'created_by' => Auth::user()->id,
+            'updated_by' => Auth::user()->id,
+            ]);   
+        }            
+    
 }

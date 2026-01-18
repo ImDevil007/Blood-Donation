@@ -36,7 +36,7 @@ class BloodUnitController extends Controller
         $search = $request->input('search');
         $bloodGroup = $request->input('blood_group');
         $bloodType = $request->input('blood_type');
-        $status = $request->input('status');
+        //$status = $request->input('status');
         $expiryFilter = $request->input('expiry_filter');
 
         $bloodUnits = BloodUnit::with(['donor', 'bloodGroup', 'bloodType', 'createBy'])
@@ -49,7 +49,7 @@ class BloodUnitController extends Controller
             }))
             ->when($bloodGroup, fn($q) => $q->where('blood_group', $bloodGroup))
             ->when($bloodType, fn($q) => $q->where('blood_type', $bloodType))
-            ->when($status !== null, fn($q) => $q->where('is_used', $status))
+            //->when($status !== null, fn($q) => $q->where('is_used', $status))
             ->when($expiryFilter === 'expired', fn($q) => $q->where('expiry_date', '<=', now()))
             ->when($expiryFilter === 'expiring_soon', fn($q) => $q->where('expiry_date', '<=', now()->addDays(7))
                 ->where('expiry_date', '>', now()))
